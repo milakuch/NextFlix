@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NextFlix - What to watch next on Netflix?</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+<body style="background-color:#B60C0C" class="container-fluid" >
+<!-- The form should submit to ProductsController.create or  ProductsController.update, depending on whether we are
+creating or editing a product -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-light" style="background-color:#B60C0A !important">
+    <a class="navbar-brand" href="#">NextFlix</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active ml-3">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+
+            <li class="nav-item ml-3">
+                <a class="nav-link" href="/search">Add to my list</a>
+            </li>
+
+            <li class="nav-item ml-3">
+                <a class="nav-link" href="/explore">Explore</a>
+            </li>
+
+            <li class="nav-item ml-3">
+                <a class="nav-link" href="/shows">Admin list</a>
+            </li>
+
+            <li class="nav-item ml-3">
+                <a class="nav-link" href="/">My List</a>
+            </li>
+
+
+
+        </ul>
+        <a href="/search#searching"> <img src="/images/15-157749_white-magnifying-glass-clip-art-at-clker-magnifying.png" style="width:30px" class="mr-3"></a>
+        <a href="/login"> <button class="btn btn-success" >Login</button></a>
+    </div>
+</nav>
+
+<section class=" mt-5 text-center text-light">
+    <div class="container">
+        <div th:if="${action} == 'add'">
+            <h1 class="jumbotron-heading">Create a TV show</h1>
+        </div>
+        <div th:if="${action} == 'edit'">
+            <h1 class="jumbotron-heading">Edit a TV show</h1>
+        </div>
+        <br>
+        <p>
+        </p>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4 text-light">
+<form method='POST' th:action="@{'/shows/{id}' (id=${show?.id})}">
+    <div>
+        <label for="title">Title</label>
+        <input th:value="${show?.title}"
+               type="text"
+               id="title"
+               size="60"
+               name="title"
+               required>
+    </div>
+
+    <div>
+        <label for="actors">Cast</label>
+        <input th:value="${show?.actors}"
+               type="text"
+               id="actors"
+               size="60"
+               name="actors" required>
+    </div>
+
+    <div>
+        <label for="releaseYear">Release Year</label>
+        <input th:value="${show?.releaseYear}"
+               type="number"
+               id="releaseYear"
+               size="60"
+               name="releaseYear" required>
+    </div>
+
+    <div>
+        <label for="rating">Rating</label>
+        <input th:value="${show?.rating}"
+               type="text"
+               id="rating"
+               size="60"
+               name="rating" required>
+    </div>
+
+    <div>
+        <label for="duration">Duration</label>
+        <input th:value="${show?.duration}"
+               type="text"
+               id="duration"
+               size="60"
+               name="duration" required>
+    </div>
+
+    <div>
+        <label for="listedIn">Genre</label>
+        <input th:value="${show?.listedIn}"
+               type="text"
+               id="listedIn"
+               size="60"
+               name="listedIn" required>
+    </div>
+
+    <div>
+        <label for="description">Description</label>
+        <input th:value="${show?.description}"
+               type="text"
+               id="description"
+               size="60"
+               name="description" required>
+    </div>
+
+    <div>
+        <label for="imageUrl">Image URL:</label>
+        <input th:value="${show?.imageUrl}"
+               type="text"
+               id="imageUrl"
+               size="60"
+               name="imageUrl" required>
+    </div>
+
+<br><br>
+    <button class= "btn btn-success" id="submit" type="submit">Submit</button>
+    <a id="back" href="/shows" type="button" class="btn btn-light">Back to list</a>
+</form>
+    </div>
+</div>
+<br>
+<br>
+<!-- Footer -->
+<footer class="text-light m-3 text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">About this project</h5>
+
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                    molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+                    voluptatem veniam, est atque cumque eum delectus sint!
+                </p>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Links</h5>
+
+                <ul class="list-unstyled mb-0">
+                    <li>
+                        <a href="#!" class="text-light">Home</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-light">Explore</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-light">Search and add</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-0">My NextFlix</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!" class="text-light">Profile</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-light">My List</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-light">My Ratings/Comments</a>
+                    </li>
+                </ul>
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        © 2021 Copyright: FINKI Web Programming
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+
+
+</body>
+</html>

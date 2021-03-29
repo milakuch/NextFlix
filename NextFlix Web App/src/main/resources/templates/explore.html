@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>NextFlix - What to watch next on Netflix?</title>
+</head>
+<body style="background-color:#B60C0C" class="container-fluid" >
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-light" style="background-color:#B60C0A !important">
+  <a class="navbar-brand" href="#">NextFlix</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item active ml-3">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+
+
+      <li class="nav-item ml-3">
+        <a class="nav-link" href="/search">Add to my list</a>
+      </li>
+
+      <li class="nav-item ml-3">
+        <a class="nav-link" href="/explore">Explore</a>
+      </li>
+
+      <li class="nav-item ml-3">
+        <a class="nav-link" href="/shows">Admin list</a>
+      </li>
+
+      <li class="nav-item ml-3">
+        <a class="nav-link" href="/">My List</a>
+      </li>
+
+
+
+    </ul>
+    <a href="/search#searching"> <img src="/images/15-157749_white-magnifying-glass-clip-art-at-clker-magnifying.png" style="width:30px" class="mr-3"></a>
+    <a href="/login"> <button class="btn btn-success" >Login</button></a>
+  </div>
+</nav>
+
+
+  <main role="main">
+
+      <section class=" mt-5 text-center text-light">
+        <div class="container">
+          <h1 class="jumbotron-heading">Explore Recommendations</h1>
+          <p class="lead ">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+          <p>
+            <a href="/search#searching" class="btn btn-primary my-2">Search instead</a>
+            <a href="/" class="btn btn-secondary my-2">My list</a>
+          </p>
+        </div>
+      </section>
+
+      <div class="album py-5 ">
+        <div class="container">
+
+          <div class="row">
+
+            <div class="row ">
+              <div class="col-md-4 " th:each="show : ${shows}">
+                <div class="card mb-4 " >
+                  <img class="card-img-top recc-image" th:src="${show.getImageUrl()}" alt="Card image cap">
+                  <div class="card-body ">
+                    <h4 th:text="${show.getTitle()}" style="min-height: 40px !important;  display:inline-block; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 24ch;"></h4>
+                    <p class="card-text" th:text="${show.getDescription()}" style="min-height: 100px !important;"></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group float-bottom">
+                        <a th:href="@{'/shows/{id}/details' (id=${show.getId()})}"> <button type="button" class="btn btn-sm btn-outline-secondary">Details</button></a>
+                        <a th:href="@{'/shows/{id}/addwatchlist' (id=${show.getId()})}"> <button type="button" class="btn btn-sm btn-outline-secondary">Add to a watchlist</button></a>
+                      </div>
+                      <small class="text-muted" th:text="${show.getRating()}"></small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+      </div>
+    </main>
+
+
+<!-- Footer -->
+<footer class="text-light m-3 text-center text-lg-start">
+     <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">About this project</h5>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+          molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+          voluptatem veniam, est atque cumque eum delectus sint!
+        </p>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Links</h5>
+
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a href="#!" class="text-light">Home</a>
+          </li>
+          <li>
+            <a href="#!" class="text-light">Explore</a>
+          </li>
+          <li>
+            <a href="#!" class="text-light">Search and add</a>
+          </li>
+
+        </ul>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase mb-0">My NextFlix</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!" class="text-light">Profile</a>
+          </li>
+          <li>
+            <a href="#!" class="text-light">My List</a>
+          </li>
+          <li>
+            <a href="#!" class="text-light">My Ratings/Comments</a>
+          </li>
+        </ul>
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+  <!-- Grid container -->
+  <!-- Copyright -->
+  <div class="text-center p-3">
+    © 2021 Copyright: FINKI Web Programming
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+
+
+</body>
+</html>
+

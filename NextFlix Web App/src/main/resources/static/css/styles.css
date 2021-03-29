@@ -1,0 +1,69 @@
+.img-black{
+    opacity: 0.35;
+}
+
+.title_card{
+    min-height: 70px !important;
+    display:inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30ch;
+}
+
+.content-carousel{
+    margin-bottom: 200px;
+}
+
+.carousel-item{
+    height:700px !important
+}
+
+html {
+   margin: 0px;
+   height: 100%;
+   width: 100%;
+}
+
+body {
+   margin: 0px;
+   min-height: 100%;
+   width: 100%;
+}
+
+.search-image {
+    height: 300px !important;
+     object-fit: cover;
+
+}
+
+.details-image {
+    height: 300px !important;
+    object-fit: cover;
+
+}
+
+.recc-image{
+     height: 200px !important;
+     object-fit: cover;
+}
+
+.row { display : flex; flex-wrap :wrap; }
+
+.recc-container{
+    height: 300px !important;
+}
+
+
+
+/*.search-back{*/
+/*    background-image: url("netflix-app-sign-watching-tv.jpg");*/
+/*    background-color: black;*/
+
+
+/*}*/
+
+/*.search-back img{*/
+/*            opacity: 0.35;*/
+/*        background-color: black;*/
+/*}*/
