@@ -63,6 +63,22 @@ public class ShowServiceImpl implements ShowService {
         return  sr.findAllByTitleIgnoreCase(name);
     }
 
+    @Override
+    public Show addRecommendation(Show s1, Show s2) {
+        List<Show> recc = s1.getRecommendations();
+        recc.add(s2);
+        s1.setRecommendations(recc);
+        return sr.save(s1);
+    }
+
+    @Override
+    public Show removeRecommendation(Show s1, Show s2) {
+        List<Show> recc = s1.getRecommendations();
+        recc.remove(s2);
+        s1.setRecommendations(recc);
+        return sr.save(s1);
+    }
+
 //    @Override
 //    public List<Show> listShowsByListedIn(String genre) {
 //        return null;

@@ -16,7 +16,7 @@ public class Watchlist {
 
     private String name;
 
-    @OneToMany
+    @ManyToMany
     private List<Show> shows;
 
     @ManyToOne

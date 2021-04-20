@@ -24,5 +24,9 @@ public interface ShowService {
 
     Show findByTitle(String name);
 
+    Show addRecommendation(Show s1, Show s2);
+
+    Show removeRecommendation(Show s1, Show s2);
+
 //    List<Show> listShowsByListedIn(String genre);
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/styles.css">
@@ -35,18 +34,24 @@
       </li>
 
       <li class="nav-item ml-3">
-        <a class="nav-link" href="/shows">Admin list</a>
+        <a class="nav-link" href="/watchlists">My Watchlists</a>
       </li>
+
 
       <li class="nav-item ml-3">
-        <a class="nav-link" href="/">My List</a>
+        <a class="nav-link" href="/stats">Stats</a>
       </li>
 
-
+      <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+        <li class="nav-item ml-3">
+          <a class="nav-link" href="/shows">Admin list</a>
+        </li>
+      </th:block>
 
     </ul>
     <a href="/search#searching"> <img src="/images/15-157749_white-magnifying-glass-clip-art-at-clker-magnifying.png" style="width:30px" class="mr-3"></a>
-    <a href="/login"> <button class="btn btn-success" >Login</button></a>
+    <a sec:authorize="isAnonymous()" href="/login"> <button class="btn btn-success" >Login</button></a>
+    <a sec:authorize="isAuthenticated()" href="/logout"> <button class="btn btn-success" >Logout</button></a>
   </div>
 </nav>
 
@@ -95,7 +100,15 @@
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group float-bottom">
                       <a th:href="@{'/shows/{id}/details' (id=${recc.getId()})}"> <button type="button" class="btn btn-sm btn-outline-secondary">Details</button></a>
-                      <a th:href="@{'/shows/{id}/addwatchlist' (id=${recc.getId()})}"> <button type="button" class="btn btn-sm btn-outline-secondary">Add to a watchlist</button></a>
+                      <a th:href="@{'/shows/{id}/addwatchlist' (id=${recc.getId()})}"> <button type="button" class="btn btn-sm btn-outline-secondary">Add to watchlist</button></a>
+
+                      <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                      <form method='POST' th:action="@{'/shows/{id}/removerecc' (id=${show.getId()})}">
+                        <input type="hidden" name="showid" th:value="${recc.getId()}"/>
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Remove</button>
+                      </form>
+                      </th:block>
+
                     </div>
                     <small class="text-muted" th:text="${recc.getRating()}"></small>
                   </div>

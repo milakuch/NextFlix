@@ -93,6 +93,31 @@ public class ShowController {
         return "form";
     }
 
+    @GetMapping("/shows/{id}/recommendation")
+    public String showRecc(@PathVariable Long id, Model model) throws Exception {
+        List<Show> shows = this.service.listAll();
+        Show show= this.service.findById(id);
+        model.addAttribute("show",show);
+        model.addAttribute("shows",shows);
+        return "add_recommendation";
+    }
+
+    @RequestMapping(value = "/shows/{id}/recc/", method = RequestMethod.POST)
+    public String addRecc(@PathVariable Long id, Model model, @ModelAttribute("selectedShow") Long show) throws Exception {
+        Show show1 = this.service.findById(id);
+        Show show2 = this.service.findById(show);
+        service.addRecommendation(show1,show2);
+        return "redirect:/shows";
+    }
+
+    @PostMapping("/shows/{id}/removerecc")
+    public String removeRecc(@PathVariable(value="id") Long id, @RequestParam(value="showid") Long showid,Model model) throws Exception {
+        Show show1 = this.service.findById(id);
+        Show show2 = this.service.findById(showid);
+        service.removeRecommendation(show1,show2);
+        return "redirect:/shows";
+    }
+
     @GetMapping("/shows/{id}/details")
     public String showDetails(@PathVariable Long id, Model model) throws Exception {
         Show show= this.service.findById(id);
